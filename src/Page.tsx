@@ -5,6 +5,7 @@ import Card from "./components/Card";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_CHARACTERS_QUERY } from "./queries/CharactersQuery";
+import { Content } from "./styles/cardStyles";
 
 interface Info {
   next: number
@@ -56,12 +57,31 @@ function Page() {
     }
   }, [data]);
 
+  const searchCharacter = (searchedCharacter: String) => {
+    if (searchedCharacter !== name) {
+      setCharacters([])
+      setNext(null)
+      setPage(1)
+      setName(searchedCharacter)
+    }
+  };
+
+  const handleScroll = (event: React.UIEvent<HTMLElement>) => {
+    const { scrollTop, clientHeight, scrollHeight } = event.currentTarget;
+
+    if (scrollHeight - scrollTop == clientHeight && next != null) {
+      setPage(next)
+    }
+  };
+
   return (
-      <Router>
+    <Router>
+      <Content onScroll={handleScroll}>
         <GlobalStyle />
-        <Header title="Rick and Morty" showSearchBar={true} ></Header>
-       <Card characters={characters}></Card>
-      </Router>
+        <Header title="Rick and Morty" searchCharacter={searchCharacter}></Header>
+        <Card characters={characters}></Card>
+      </Content>
+    </Router>
   );
 }
 

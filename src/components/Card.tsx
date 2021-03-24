@@ -15,7 +15,7 @@ const Card = ({ characters }: { characters: Character[] }) => {
   return (
     <>
       {characters && characters.map(character =>
-        <ListDiv>
+        <ListDiv key={character.id}>
           <CardsWrapper>
             <CardItem>
               <CardContainer>

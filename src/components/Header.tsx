@@ -1,41 +1,29 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { TitleHeader, 
-         SearchDiv,
-         SearchInput,
-        } 
-from '../styles/headerStyles';
+import {
+  TitleHeader,
+  SearchDiv,
+  SearchInput,
+}from '../styles/headerStyles';
 
-const Header = ({title, showSearchBar} : {title: String, showSearchBar: boolean}) => {
+const Header = ({ title, searchCharacter }: { title: String, searchCharacter: (param: String) => void}) => {
   const location = useLocation();
 
-  const onClick = () => {
-    const clearIcon = document.querySelector(".clear-icon") as HTMLImageElement;
-    const searchBar = document.querySelector(".search") as HTMLInputElement;
-
-    searchBar.addEventListener("keyup", () => {
-      if(searchBar.value && clearIcon.style.visibility !== "visible"){
-        clearIcon.style.visibility = "visible";
-      } else if(!searchBar.value) {
-        clearIcon.style.visibility = "hidden";
-      }
-    });
-
-    clearIcon.addEventListener("click", () => {
-      searchBar.value = "";
-      clearIcon.style.visibility = "hidden";
-    })
-
+  const onKeywordPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key == 'Enter') {
+      const search = document.querySelector(".search") as HTMLInputElement;
+      searchCharacter(search.value)
+    }
   };
 
   return (
     <>
-    <TitleHeader>
-      <h1>{title}</h1>
-    </TitleHeader>
-    <SearchDiv>
-    <SearchInput className="search" type="text" placeholder="Search"></SearchInput>
-    </SearchDiv>
+      <TitleHeader>
+        <h1>{title}</h1>
+      </TitleHeader>
+      <SearchDiv>
+        <SearchInput className="search" name="search" type="text" placeholder="Search" onKeyPress={onKeywordPress}></SearchInput>
+      </SearchDiv>
     </>
   )
 };

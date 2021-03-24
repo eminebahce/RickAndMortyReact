@@ -24,6 +24,15 @@ const CardItem = styled.li`
   @media(min-width: 56rem) {
     //width: 80%;
   }
+  /* @media(min-width: 375px) {
+    margin-left: 88px;
+  } */
+  /* @media(min-width: 414px) {
+    margin-left: 109px;
+  } */
+  /* @media(min-width: 768px) {
+    margin-left: 43px;
+  } */
 `;
 
 const CardContainer = styled.div`
@@ -73,7 +82,10 @@ const CardText = styled.div`
   color: white;
 `; 
 
-
+const Content = styled.div`
+  height: 1000px;
+  overflow: auto;
+`;
 
 export { CardsWrapper,
          CardItem,
@@ -82,5 +94,6 @@ export { CardsWrapper,
          CardImage,
          CardTitle,
          CardText,
-         ListDiv 
+         ListDiv,
+         Content
        }
