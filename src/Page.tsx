@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import GlobalStyle from './styles/globalStyles';
 import Header from "./components/Header";
 import Card from "./components/Card";
+import CardDetails from "./components/CardDetails";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_CHARACTERS_QUERY } from "./queries/CharactersQuery";
@@ -43,6 +44,8 @@ interface CharacterVars {
   name: String
 }
 
+export const CharactersContext = React.createContext<Character[] | null>(null);
+
 function Page() {
   const [page, setPage] = useState<number>(1)
   const [name, setName] = useState<String>("")
@@ -80,6 +83,9 @@ function Page() {
         <GlobalStyle />
         <Header title="Rick and Morty" searchCharacter={searchCharacter}></Header>
         <Card characters={characters}></Card>
+        <CharactersContext.Provider value={characters}>
+          <Route path='/CardDetails/:id' component={CardDetails} />
+        </CharactersContext.Provider>
       </Content>
     </Router>
   );

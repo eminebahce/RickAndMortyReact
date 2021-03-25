@@ -21,9 +21,9 @@ const Header = ({ title, searchCharacter }: { title: String, searchCharacter: (p
       <TitleHeader>
         <h1>{title}</h1>
       </TitleHeader>
-      <SearchDiv>
+      {location.pathname === '/' && <SearchDiv>
         <SearchInput className="search" name="search" type="text" placeholder="Search" onKeyPress={onKeywordPress}></SearchInput>
-      </SearchDiv>
+      </SearchDiv>}
     </>
   )
 };
