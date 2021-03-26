@@ -11,7 +11,7 @@ import { onError } from "@apollo/client/link/error";
 const errorLink = onError(({ graphQLErrors }) => {
   if (graphQLErrors) {
     graphQLErrors.map(({ message }: { message: String }) => {
-      alert(`Graphql error ${message}`);
+      console.log(`Graphql error ${message}`);
     });
   }
 });

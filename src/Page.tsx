@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_CHARACTERS_QUERY } from "./queries/CharactersQuery";
 import { Content } from "./styles/cardStyles";
+import { ErrorDiv } from './styles/errorStyles';
+import RickAndMorty from './assets/rickmorty.jpg';
 
 interface Info {
   next: number
@@ -83,6 +85,12 @@ function Page() {
         <GlobalStyle />
         <Header title="Rick and Morty" searchCharacter={searchCharacter}></Header>
         <Card characters={characters}></Card>
+        {error  && 
+        <ErrorDiv>
+          <img src={RickAndMorty} />
+          <p>CHARACTER NOT FOUND...</p>
+        </ErrorDiv>
+        }
         <CharactersContext.Provider value={characters}>
           <Route path='/CardDetails/:id' component={CardDetails} />
         </CharactersContext.Provider>
