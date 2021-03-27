@@ -1,4 +1,4 @@
-import styled  from "styled-components";
+import styled from "styled-components";
 
 const TitleHeader = styled.div`
   display: flex;
@@ -57,7 +57,8 @@ const SearchInput = styled.input`
   }
 `;
 
-export { TitleHeader, 
-         SearchDiv, 
-         SearchInput, 
-        }
+export {
+  TitleHeader,
+  SearchDiv,
+  SearchInput,
+}

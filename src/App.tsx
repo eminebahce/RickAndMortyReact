@@ -7,8 +7,9 @@ import {
   from,
 } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
+import { BrowserRouter as Router } from 'react-router-dom';
 
-const errorLink = onError(({ graphQLErrors }) => {
+const error = onError(({ graphQLErrors }) => {
   if (graphQLErrors) {
     graphQLErrors.map(({ message }: { message: String }) => {
       console.log(`Graphql error ${message}`);
@@ -17,7 +18,7 @@ const errorLink = onError(({ graphQLErrors }) => {
 });
 
 const link = from([
-  errorLink,
+  error,
   new HttpLink({ uri: "https://rickandmortyapi.com/graphql" }),
 ]);
 
@@ -29,7 +30,9 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Page/>
+      <Router>
+        <Page />
+      </Router>
     </ApolloProvider>
   );
 }

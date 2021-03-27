@@ -1,4 +1,4 @@
-import styled  from "styled-components";
+import styled from "styled-components";
 
 const FontStyle = styled.span`
   margin-right: 5px;
@@ -26,7 +26,7 @@ const CardsWrapper = styled.ul`
   flex-wrap: wrap;
   list-style: none;
 
-a {
+  a {
     text-decoration: none;
   }
   
@@ -125,23 +125,24 @@ const CardText = styled.div`
     margin-right: 5px;
     color: #040E1D;
   }
-`; 
+`;
 
 const Content = styled.div`
   height: 1000px;
   overflow: auto;
 `;
 
-export { CardsWrapper,
-         CardItem,
-         CardContainer,
-         CardContent,
-         CardImage,
-         CardTitle,
-         CardText,
-         ListDiv,
-         Content,
-         CardDetailsDiv,
-         FontStyle,
-         CardDetailsImage,
-       }
+export {
+  CardsWrapper,
+  CardItem,
+  CardContainer,
+  CardContent,
+  CardImage,
+  CardTitle,
+  CardText,
+  ListDiv,
+  Content,
+  CardDetailsDiv,
+  FontStyle,
+  CardDetailsImage,
+}

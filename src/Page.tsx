@@ -3,57 +3,27 @@ import GlobalStyle from './styles/globalStyles';
 import Header from "./components/Header";
 import Card from "./components/Card";
 import CardDetails from "./components/CardDetails";
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_CHARACTERS_QUERY } from "./queries/CharactersQuery";
 import { Content } from "./styles/cardStyles";
 import { ErrorDiv } from './styles/errorStyles';
-import RickAndMorty from './assets/rickmorty.jpg';
-
-interface Info {
-  next: number
-}
-interface Location {
-  name: String
-}
-interface Episode {
-  id: number
-  name: String
-  air_date: String
-  episode: String
-  created: String
-}
-export interface Character {
-  id: number
-  name: String
-  location: Location
-  status: String
-  origin: Location
-  image: String
-  gender: String
-  species: String
-  episode: Episode[]
-}
-export interface Characters {
-  info: Info
-  results: Character[]
-}
-interface CharactersData {
-  characters: Characters
-}
-interface CharacterVars {
-  page: number
-  name: String
-}
+import RickAndMorty from './assets/rickmortynotfound.png';
+import {
+  Character,
+  CharactersData,
+  CharacterVars
+} from './interfaces/ApiCallInterfaces';
+import { Route, useLocation } from 'react-router-dom';
 
 export const CharactersContext = React.createContext<Character[] | null>(null);
 
 function Page() {
+  const location = useLocation();
   const [page, setPage] = useState<number>(1)
   const [name, setName] = useState<String>("")
   const [next, setNext] = useState<number | null>(null)
   const [characters, setCharacters] = useState<Character[]>([])
-  const { error, loading, data } = useQuery<CharactersData, CharacterVars>(GET_CHARACTERS_QUERY, { variables: { page: page, name: name } });
+  const { error, data } = useQuery<CharactersData, CharacterVars>(GET_CHARACTERS_QUERY, { variables: { page: page, name: name } });
 
   useEffect(() => {
     if (data) {
@@ -74,28 +44,25 @@ function Page() {
   const handleScroll = (event: React.UIEvent<HTMLElement>) => {
     const { scrollTop, clientHeight, scrollHeight } = event.currentTarget;
 
-    if (scrollHeight - scrollTop == clientHeight && next != null) {
+    if (scrollHeight - scrollTop === clientHeight && next != null) {
       setPage(next)
     }
   };
 
   return (
-    <Router>
       <Content onScroll={handleScroll}>
         <GlobalStyle />
         <Header title="Rick and Morty" searchCharacter={searchCharacter}></Header>
         <Card characters={characters}></Card>
-        {error  && 
-        <ErrorDiv>
-          <img src={RickAndMorty} />
-          <p>CHARACTER NOT FOUND...</p>
-        </ErrorDiv>
+        {error && location.pathname === '/' &&
+          <ErrorDiv>
+            <img src={RickAndMorty} alt="Character Not found" />
+          </ErrorDiv>
         }
         <CharactersContext.Provider value={characters}>
           <Route path='/CardDetails/:id' component={CardDetails} />
         </CharactersContext.Provider>
       </Content>
-    </Router>
   );
 }
 

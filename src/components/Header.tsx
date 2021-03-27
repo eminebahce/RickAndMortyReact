@@ -10,7 +10,7 @@ const Header = ({ title, searchCharacter }: { title: String, searchCharacter: (p
   const location = useLocation();
 
   const onKeywordPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key == 'Enter') {
+    if (event.key === 'Enter') {
       const search = document.querySelector(".search") as HTMLInputElement;
       searchCharacter(search.value)
     }

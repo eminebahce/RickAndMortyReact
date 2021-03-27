@@ -1,5 +1,4 @@
 import React from 'react';
-import { Character } from '../Page';
 import {
   CardsWrapper,
   CardItem,
@@ -17,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeartbeat } from '@fortawesome/free-solid-svg-icons';
 import { faBookDead } from '@fortawesome/free-solid-svg-icons';
 import { faQuestion } from '@fortawesome/free-solid-svg-icons';
+import {Character} from '../interfaces/ApiCallInterfaces';
 
 const Card = ({ characters }: { characters: Character[] }) => {
   const location = useLocation();
@@ -29,12 +29,12 @@ const Card = ({ characters }: { characters: Character[] }) => {
               <CardItem>
                 <CardContainer>
                   <CardImage>
-                    <img src={String(character.image)}></img>
+                    <img src={String(character.image)} alt="Character"></img>
                   </CardImage>
                   <CardContent>
                     <CardTitle>{character.name}</CardTitle>
                     <CardText>
-                      {character.status == 'Alive' &&
+                      {character.status === 'Alive' &&
                         <p style={{ color: "green" }}>
                           <FontStyle>
                             <FontAwesomeIcon icon={faHeartbeat} style={{ color: "green" }} />
@@ -42,7 +42,7 @@ const Card = ({ characters }: { characters: Character[] }) => {
                           {character.status} - {character.species}
                         </p>
                       }
-                      {character.status == 'Dead' &&
+                      {character.status === 'Dead' &&
                         <p style={{ color: "red" }}>
                           <FontStyle>
                             <FontAwesomeIcon icon={faBookDead} style={{ color: "red" }} />
@@ -50,7 +50,7 @@ const Card = ({ characters }: { characters: Character[] }) => {
                           {character.status} - {character.species}
                         </p>
                       }
-                      {character.status == 'unknown' &&
+                      {character.status === 'unknown' &&
                         <p style={{ color: "yellow" }}>
                           <FontStyle>
                             <FontAwesomeIcon icon={faQuestion} style={{ color: "yellow" }} />
